@@ -49,11 +49,42 @@ python3 tools/fetch_defcon.py --dry-run
 python3 tools/fetch_defcon.py
 ```
 
-See `.claude/skills/refresh-defcon-schedule/`. The endpoint paths in
-`tools/fetch_defcon.py` (`BASE`, `ENDPOINTS`) are a best guess at the app's API
-and are **unverified against the live site** — the original capture was manual.
-If the fetch fails, use `--from-dir <export>` to re-flatten a manual export,
-then fix the endpoints and record what changed here.
+See `.claude/skills/refresh-defcon-schedule/`.
+
+### Upstream layout (verified)
+
+The site is built from <https://github.com/junctor/hackertracker-info> and is a
+static JSON tree, not a query API. The layout is declared in that repo:
+
+- `src/lib/conferences.ts` — `dataRoot` per conference; DEF CON 34 is `/ht/defcon34`
+- `src/lib/dataContract.ts` — view paths, detail shard counts, `HT_SCHEMA_VERSION = 4`
+
+So the real endpoints are:
+
+| what | url |
+| --- | --- |
+| manifest | `https://info.defcon.org/ht/defcon34/manifest.json` |
+| content cards | `https://info.defcon.org/ht/defcon34/views/contentCards.json` |
+| content detail | `https://info.defcon.org/ht/defcon34/details/content/{00..07}.json` |
+
+Those eight shards are exactly the eight JSON files in the original hand
+capture. Locally they are stored as `content/page-NN.json`, where `NN` matches
+the upstream shard number.
+
+`manifest.json` returns `{buildTimestamp, schemaVersion}`. The refresh script
+checks `schemaVersion` and warns if it is no longer 4 — that is the cheap
+signal that the layout changed and `dataContract.ts` needs re-reading.
+
+A different year needs no code change: `--conference defcon35 --out data/defcon35`.
+
+### The host is HTTP/2-only
+
+It resets HTTP/1.1 connections, so Python's `urllib` cannot reach it at all —
+the symptom is `[Errno 54] Connection reset by peer` after a successful TLS
+handshake, which looks like bot-blocking and is not. `tools/fetchlib.py` shells
+out to `curl` (which negotiates h2 over ALPN) whenever it is installed. If a
+refresh fails with resets, check `curl --http1.1` vs `--http2` before touching
+headers; `python3 tools/diagnose_fetch.py` does it for you.
 
 ## Terms
 
