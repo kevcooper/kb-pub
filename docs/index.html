@@ -8,43 +8,37 @@
   :root { --fg:#e8e8e8; --bg:#121212; --muted:#9a9a9a; --line:#2c2c2c; --accent:#8ab4f8; }
 }
 * { box-sizing: border-box; }
-body { margin:0 auto; padding:2rem 1rem; max-width:44rem;
-       font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+body { margin:0; padding:1rem; font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
        color:var(--fg); background:var(--bg); }
-h1 { font-size:1.3rem; margin:0 0 1rem; }
+header { position:sticky; top:0; background:var(--bg); padding-bottom:.6rem; border-bottom:1px solid var(--line); z-index:5; }
+h1 { font-size:1.15rem; margin:0 0 .5rem; }
 a { color:var(--accent); }
-code { background:color-mix(in srgb, var(--fg) 8%, transparent); padding:.1rem .3rem; border-radius:4px; }
-.note { border:1px solid var(--line); border-radius:8px; padding:1rem; margin:1.5rem 0; }
-footer { margin-top:2.5rem; padding-top:1rem; border-top:1px solid var(--line);
-         color:var(--muted); font-size:.85rem; }
+.controls { display:flex; gap:.4rem; flex-wrap:wrap; }
+input, select { padding:.5rem; font-size:1rem; border:1px solid var(--line); border-radius:8px;
+                background:var(--bg); color:var(--fg); }
+#q { flex:1 1 12rem; min-width:0; }
+#count { color:var(--muted); font-size:.85rem; margin:.5rem 0; }
+.s { padding:.7rem 0; border-bottom:1px solid var(--line); }
+.s h2 { font-size:1rem; margin:0 0 .2rem; font-weight:600; }
+.meta { color:var(--muted); font-size:.85rem; }
+.tags { margin-top:.25rem; font-size:.75rem; color:var(--muted); }
+.desc { margin:.4rem 0 0; font-size:.9rem; }
+details summary { cursor:pointer; color:var(--accent); font-size:.85rem; }
+.links a { display:inline-block; margin-right:.6rem; font-size:.85rem; }
+footer { margin-top:2rem; color:var(--muted); font-size:.8rem; }
 </style>
-
-<h1>Published datasets</h1>
-
+<header><h1>Published datasets</h1></header>
+<main>
 <p>Static republication of third-party datasets held in
-<a href="https://github.com/kevcooper/kb">kevcooper/kb</a>, a private knowledge
-repository. The private corpus is <strong>not</strong> published here and is not
-present in this repository.</p>
-
-<div class="note">
-  <p><strong>Nothing published yet.</strong> This page is a placeholder so
-  GitHub Pages can be switched on. CI replaces <code>docs/</code> wholesale on
-  the first publish.</p>
-</div>
-
-<h2>Planned endpoints</h2>
-
-<p>Once populated, the site serves both a human-readable filterable view and
-stable JSON, so it can be queried directly by an agent:</p>
-
+<a href="https://github.com/kevcooper/kb">kevcooper/kb</a>. The private
+knowledge corpus is <strong>not</strong> published here.</p>
+<ul><li><a href="defcon34/">defcon34</a> — 1848 sessions (<a href="defcon34/sessions.json">json</a>)</li></ul>
+<h2>For agents</h2>
+<p>Machine-readable entry points:</p>
 <ul>
-  <li><code>/index.json</code> — manifest of every dataset</li>
-  <li><code>/llms.txt</code> — the URL scheme described in prose</li>
+  <li><a href="index.json">/index.json</a> — manifest of every dataset</li>
+  <li><a href="llms.txt">/llms.txt</a> — the URL scheme in prose</li>
   <li><code>/&lt;dataset&gt;/sessions.json</code> — full records</li>
-  <li><code>/&lt;dataset&gt;/</code> — filterable HTML view</li>
 </ul>
-
-<footer>
-  Generated from <code>kevcooper/kb</code>. Do not edit <code>docs/</code> by
-  hand — it is overwritten on every publish.
-</footer>
+</main>
+<footer>https://resume.kevincooper.io/kb-pub</footer>

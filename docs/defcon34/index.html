@@ -1,0 +1,90 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>defcon34 schedule</title>
+<style>
+:root { color-scheme: light dark; --fg:#111; --bg:#fff; --muted:#666; --line:#e3e3e3; --accent:#0b57d0; }
+@media (prefers-color-scheme: dark) {
+  :root { --fg:#e8e8e8; --bg:#121212; --muted:#9a9a9a; --line:#2c2c2c; --accent:#8ab4f8; }
+}
+* { box-sizing: border-box; }
+body { margin:0; padding:1rem; font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+       color:var(--fg); background:var(--bg); }
+header { position:sticky; top:0; background:var(--bg); padding-bottom:.6rem; border-bottom:1px solid var(--line); z-index:5; }
+h1 { font-size:1.15rem; margin:0 0 .5rem; }
+a { color:var(--accent); }
+.controls { display:flex; gap:.4rem; flex-wrap:wrap; }
+input, select { padding:.5rem; font-size:1rem; border:1px solid var(--line); border-radius:8px;
+                background:var(--bg); color:var(--fg); }
+#q { flex:1 1 12rem; min-width:0; }
+#count { color:var(--muted); font-size:.85rem; margin:.5rem 0; }
+.s { padding:.7rem 0; border-bottom:1px solid var(--line); }
+.s h2 { font-size:1rem; margin:0 0 .2rem; font-weight:600; }
+.meta { color:var(--muted); font-size:.85rem; }
+.tags { margin-top:.25rem; font-size:.75rem; color:var(--muted); }
+.desc { margin:.4rem 0 0; font-size:.9rem; }
+details summary { cursor:pointer; color:var(--accent); font-size:.85rem; }
+.links a { display:inline-block; margin-right:.6rem; font-size:.85rem; }
+footer { margin-top:2rem; color:var(--muted); font-size:.8rem; }
+</style>
+<header>
+  <h1>defcon34 — 1848 sessions</h1>
+  <div class="controls">
+    <input id="q" type="search" placeholder="search titles, abstracts, speakers…" autocomplete="off">
+    <select id="day"><option value="">all days</option></select>
+    <select id="tag"><option value="">all tags</option></select>
+  </div>
+  <div id="count"></div>
+</header>
+<main id="list"></main>
+<footer>
+  Data: <a href="../index.json">manifest</a> ·
+  <a href="sessions.json">sessions.json</a> ·
+  <a href="schedule.csv">schedule.csv</a><br>
+  Third-party schedule data republished for personal planning. Built from
+  <code>data/defcon34</code>.
+</footer>
+<script>
+let ALL = [];
+const q = document.getElementById('q');
+const day = document.getElementById('day');
+const tag = document.getElementById('tag');
+const list = document.getElementById('list');
+const count = document.getElementById('count');
+
+function esc(s){ const d=document.createElement('div'); d.textContent = s==null?'':String(s); return d.innerHTML; }
+
+function render(rows){
+  count.textContent = rows.length + ' session' + (rows.length===1?'':'s');
+  list.innerHTML = rows.slice(0, 400).map(s => `
+    <div class="s">
+      <h2>${esc(s.title)}</h2>
+      <div class="meta">${esc(s.day)} ${esc((s.begin_local||'').slice(11))}–${esc((s.end_local||'').slice(11))}
+        · ${esc(s.location)}${s.speakers ? ' · ' + esc(s.speakers) : ''}</div>
+      ${s.tags.length ? `<div class="tags">${s.tags.map(esc).join(' · ')}</div>` : ''}
+      ${s.description ? `<details><summary>abstract</summary><p class="desc">${esc(s.description)}</p></details>` : ''}
+      ${s.links.length ? `<div class="links">${s.links.map(l =>
+          `<a href="${esc(l.url)}" rel="noopener nofollow">${esc(l.label)}</a>`).join('')}</div>` : ''}
+    </div>`).join('');
+  if (rows.length > 400) list.innerHTML += '<p class="meta">Showing first 400. Narrow your search.</p>';
+}
+
+function apply(){
+  const needle = q.value.toLowerCase().trim();
+  const d = day.value, t = tag.value;
+  render(ALL.filter(s =>
+    (!d || s.day === d) &&
+    (!t || s.tags.includes(t)) &&
+    (!needle || (s.title + ' ' + s.description + ' ' + s.speakers + ' ' + s.location).toLowerCase().includes(needle))
+  ));
+}
+
+fetch('sessions.json').then(r => r.json()).then(data => {
+  ALL = data.sessions;
+  for (const d of data.days) day.add(new Option(d, d));
+  for (const t of data.tags) tag.add(new Option(t, t));
+  apply();
+}).catch(e => { list.textContent = 'Could not load sessions.json: ' + e; });
+
+[q, day, tag].forEach(el => el.addEventListener('input', apply));
+</script>
