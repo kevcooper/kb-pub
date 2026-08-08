@@ -6,23 +6,23 @@ directly; they are plain files with no auth and no rate limit.
 The private knowledge corpus is NOT published here — only data that came
 from public third-party sources.
 
-- https://resume.kevincooper.io/kb-pub/index.json — manifest listing every dataset
+- https://kevcooper.github.io/kb-pub/index.json — manifest listing every dataset
 
 ## Endpoints per dataset
 
-- https://resume.kevincooper.io/kb-pub/<dataset>/sessions.json
+- https://kevcooper.github.io/kb-pub/<dataset>/sessions.json
     keys: dataset, session_count, days[], tags[], sessions[]
     each session: session_id, content_id, title, day, begin_local,
     end_local, begin_utc, end_utc, duration_min, location, speakers,
     tags[], description, links[{label,url}]
-- https://resume.kevincooper.io/kb-pub/<dataset>/schedule.csv — the same data, one row per session
-- https://resume.kevincooper.io/kb-pub/<dataset>/SOURCE.md — provenance and known quirks
-- https://resume.kevincooper.io/kb-pub/<dataset>/ — human-readable filterable view
+- https://kevcooper.github.io/kb-pub/<dataset>/schedule.csv — the same data, one row per session
+- https://kevcooper.github.io/kb-pub/<dataset>/SOURCE.md — provenance and known quirks
+- https://kevcooper.github.io/kb-pub/<dataset>/ — human-readable filterable view
 
 ## Available now
 
 - defcon34: 1848 sessions, days Fri 2026-08-07, Mon 2026-08-10, Sat 2026-08-08, Sun 2026-08-09, Thu 2026-08-06, Tue 2026-08-11, Wed 2026-08-05
-    https://resume.kevincooper.io/kb-pub/defcon34/sessions.json
+    https://kevcooper.github.io/kb-pub/defcon34/sessions.json
 
 Notes: times are conference-local unless the field name says utc.
 session_id identifies one occurrence; content_id identifies the talk.

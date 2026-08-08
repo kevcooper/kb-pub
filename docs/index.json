@@ -1,5 +1,5 @@
 {
-  "base_url": "https://resume.kevincooper.io/kb-pub",
+  "base_url": "https://kevcooper.github.io/kb-pub",
   "datasets": [
     {
       "name": "defcon34",
@@ -15,10 +15,10 @@
       ],
       "tag_count": 171,
       "urls": {
-        "html": "https://resume.kevincooper.io/kb-pub/defcon34/",
-        "json": "https://resume.kevincooper.io/kb-pub/defcon34/sessions.json",
-        "csv": "https://resume.kevincooper.io/kb-pub/defcon34/schedule.csv",
-        "source": "https://resume.kevincooper.io/kb-pub/defcon34/SOURCE.md"
+        "html": "https://kevcooper.github.io/kb-pub/defcon34/",
+        "json": "https://kevcooper.github.io/kb-pub/defcon34/sessions.json",
+        "csv": "https://kevcooper.github.io/kb-pub/defcon34/schedule.csv",
+        "source": "https://kevcooper.github.io/kb-pub/defcon34/SOURCE.md"
       }
     }
   ]
