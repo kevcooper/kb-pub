@@ -5867,14 +5867,20 @@ I'll walk through what it takes to wrangle nixpkgs in an HPC environment at this
 
 Abstract: As small modular reactors (SMRs) are deployed as distributed energy resources, their interconnected digital infrastructure expands the cyber attack surface across nuclear operational technology (OT) in ways that traditional, rule-based security mechanisms were never designed to address. NICSSIM (Nuclear Industrial Control System Simulation) is a modular ICS testbed that models, deploys, monitors, and analyzes an SMR fleet in a fully software-based environment, so security research can be conducted with no live infrastructure at risk.
 
-This demonstration shows NICSSIM end to end: a human-aware multi-agent architecture in which a supervisory agent coordinates a read-only vulnerability-analysis agent and a remediation agent under deterministic safety guardrails and an independent safety auditor, with strict separation between analysis and execution that keeps human operators as the final decision-makers. Attendees watch agents and operators detect, analyze, and respond to live attacks across 1 to 3 reactor fleets, alongside results showing up to a 96 percent response success rate with ISA/IEC 62443 compliance verification, and the latency and cost trade-offs measured across seven models from four providers.  Presentation Outline/Walkthrough:
+This demonstration shows NICSSIM end to end: a human-aware multi-agent architecture in which a supervisory agent coordinates a read-only vulnerability-analysis agent and a remediation agent under deterministic safety guardrails and an independent safety auditor, with strict separation between analysis and execution that keeps human operators as the final decision-makers. Attendees watch agents and operators detect, analyze, and respond to live attacks across 1 to 3 reactor fleets, alongside results showing up to a 96 percent response success rate with ISA/IEC 62443 compliance verification, and the latency and cost trade-offs measured across seven models from four providers.
+
+Presentation Outline/Walkthrough:
 
 Why nuclear OT, why now. SMRs are deployed as distributed energy resources rather than large centralized plants, which tightens the coupling between cyber and physical processes and widens the attack surface across an interconnected fleet. Traditional defense-in-depth, built on the Purdue model, firewalls, and intrusion detection, provides rigidity rather than adaptability and cannot reason about a live fleet in real time.
- The gap and the testbed. What is missing is a single environment that combines high-fidelity ICS simulation, coordinated multi-agent reasoning, and human-aware control. Presenters introduce NICSSIM: SMR digital twins built on ICSSIM and Docker, aligned to the Purdue model, generating continuous telemetry, with no live infrastructure at risk.
+
+The gap and the testbed. What is missing is a single environment that combines high-fidelity ICS simulation, coordinated multi-agent reasoning, and human-aware control. Presenters introduce NICSSIM: SMR digital twins built on ICSSIM and Docker, aligned to the Purdue model, generating continuous telemetry, with no live infrastructure at risk.
 
 Architecture walkthrough and Live UI. Live interface, deploys a modular fleet, and shows the digital twins and live operational data. Display of human-aware multi-agent design: a human-in-the-loop gateway, a supervisory agent that serves as the single control point, a read-only vulnerability-analysis agent, a remediation agent, and an independent safety auditor, with deterministic guardrails and enforced separation between the analysis environment and the target ICS environment.
- Live attack and defense. Presenters “deploy” 1-SMR and 3-SMR fleets and run scenarios live: an unauthenticated Modbus write command evaluated for correct risk severity, a safety-threshold violation such as a request to push the primary coolant outlet temperature past its hardcoded limit, which the system must reject, and an ISA/IEC 62443 compliance mapping in which a finding must map to the correct regulatory sub-section rather than offer vague advice. The audience sees the guardrail reject an unsafe command, the safety auditor catch a flawed finding, and the forensic audit trail a human operator would review.
- Results and trade-offs. Response Success Rate by fleet size and model, from 0.96 for a single SMR down to 0.91 for a three-reactor fleet with the highest-reasoning model, alongside the latency, token, and cost trade-offs measured across seven models from four providers. The takeaway is that higher-reasoning models buy accuracy at the cost of latency and dollars, a trade-off that matters for real OT deployment decisions. 
+
+Live attack and defense. Presenters “deploy” 1-SMR and 3-SMR fleets and run scenarios live: an unauthenticated Modbus write command evaluated for correct risk severity, a safety-threshold violation such as a request to push the primary coolant outlet temperature past its hardcoded limit, which the system must reject, and an ISA/IEC 62443 compliance mapping in which a finding must map to the correct regulatory sub-section rather than offer vague advice. The audience sees the guardrail reject an unsafe command, the safety auditor catch a flawed finding, and the forensic audit trail a human operator would review.
+
+Results and trade-offs. Response Success Rate by fleet size and model, from 0.96 for a single SMR down to 0.91 for a three-reactor fleet with the highest-reasoning model, alongside the latency, token, and cost trade-offs measured across seven models from four providers. The takeaway is that higher-reasoning models buy accuracy at the cost of latency and dollars, a trade-off that matters for real OT deployment decisions.
+
 Dual-use and responsible design. The framework establishes defensive elements through isolated, simulation-only boundaries, deterministic guardrails, and required human authorization for any non-read-only action, while gating system access using IEC 62443 security levels. Conversely, its offensive elements reside in the embedded red team capabilities that possess the dual-use potential to identify exploit vectors in nuclear Operational Technology (OT) environments. To ensure a responsible design, this dual-use capability is set for credentialed security researchers operating within sanctioned, simulated training exercises under institutional oversight and strict operational containment.",,2026-08-08 18:30,2026-08-08 19:00,,#3EA2E0
 66929,68286,Catching Cheaters in Super Smash Bros Melee,Sat 2026-08-08,2026-08-08 11:30,2026-08-08 12:00,30,LVCC - L1 - Exhibit Hall West 3 - 801 (Creator Stage 2),AltF4,Creator Talk/Panel; Game Hacking Village,"Super Smash Bros Melee for the Nintendo GameCube is one of the oldest active fighting game communities, with a storied 25 year history.
 
@@ -6535,12 +6541,15 @@ Finally, we present practical detection and defense strategies, including novel 
 
 
 ""Dylib hijacking on OS X""
- www.virusbulletin.com/virusbulletin/2015/03/dylib-hijacking-os-x
+
+www.virusbulletin.com/virusbulletin/2015/03/dylib-hijacking-os-x
 
 ""Tweaking macOS security controls to thwart application bundle manipulation""
- redcanary.com/blog/threat-detection/mac-application-bundles/
 
-""What's New in Security"" (WWDC 2016) 
+redcanary.com/blog/threat-detection/mac-application-bundles/
+
+""What's New in Security"" (WWDC 2016)
+
 devstreaming-cdn.apple.com/videos/wwdc/2016/706sgjvzkvg6rrg9icw/706/706_whats_new_in_security.pdf",,2026-08-08 20:00,2026-08-08 21:00,,#0d9e2b
 66562,67828,Book Signing - Cindy Cohn,Sat 2026-08-08,2026-08-08 13:00,2026-08-08 14:00,60,LVCC - L1 - Exhibit Hall West 4 - 1300 (Book Signings) - Table 1,Cindy Cohn,Vendor Book Signing,,,2026-08-08 20:00,2026-08-08 21:00,,#5E4E62
 66560,67835,Book Signing - Christopher DeCarmen,Sat 2026-08-08,2026-08-08 13:00,2026-08-08 14:00,60,LVCC - L1 - Exhibit Hall West 4 - 1300 (Book Signings) - Table 2,Christopher DeCarmen,Vendor Book Signing,,,2026-08-08 20:00,2026-08-08 21:00,,#5E4E62
