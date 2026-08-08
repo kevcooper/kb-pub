@@ -1,0 +1,50 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>kb — published datasets</title>
+<style>
+:root { color-scheme: light dark; --fg:#111; --bg:#fff; --muted:#666; --line:#e3e3e3; --accent:#0b57d0; }
+@media (prefers-color-scheme: dark) {
+  :root { --fg:#e8e8e8; --bg:#121212; --muted:#9a9a9a; --line:#2c2c2c; --accent:#8ab4f8; }
+}
+* { box-sizing: border-box; }
+body { margin:0 auto; padding:2rem 1rem; max-width:44rem;
+       font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+       color:var(--fg); background:var(--bg); }
+h1 { font-size:1.3rem; margin:0 0 1rem; }
+a { color:var(--accent); }
+code { background:color-mix(in srgb, var(--fg) 8%, transparent); padding:.1rem .3rem; border-radius:4px; }
+.note { border:1px solid var(--line); border-radius:8px; padding:1rem; margin:1.5rem 0; }
+footer { margin-top:2.5rem; padding-top:1rem; border-top:1px solid var(--line);
+         color:var(--muted); font-size:.85rem; }
+</style>
+
+<h1>Published datasets</h1>
+
+<p>Static republication of third-party datasets held in
+<a href="https://github.com/kevcooper/kb">kevcooper/kb</a>, a private knowledge
+repository. The private corpus is <strong>not</strong> published here and is not
+present in this repository.</p>
+
+<div class="note">
+  <p><strong>Nothing published yet.</strong> This page is a placeholder so
+  GitHub Pages can be switched on. CI replaces <code>docs/</code> wholesale on
+  the first publish.</p>
+</div>
+
+<h2>Planned endpoints</h2>
+
+<p>Once populated, the site serves both a human-readable filterable view and
+stable JSON, so it can be queried directly by an agent:</p>
+
+<ul>
+  <li><code>/index.json</code> — manifest of every dataset</li>
+  <li><code>/llms.txt</code> — the URL scheme described in prose</li>
+  <li><code>/&lt;dataset&gt;/sessions.json</code> — full records</li>
+  <li><code>/&lt;dataset&gt;/</code> — filterable HTML view</li>
+</ul>
+
+<footer>
+  Generated from <code>kevcooper/kb</code>. Do not edit <code>docs/</code> by
+  hand — it is overwritten on every publish.
+</footer>
