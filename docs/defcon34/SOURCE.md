@@ -59,13 +59,37 @@ static JSON tree, not a query API. The layout is declared in that repo:
 - `src/lib/conferences.ts` — `dataRoot` per conference; DEF CON 34 is `/ht/defcon34`
 - `src/lib/dataContract.ts` — view paths, detail shard counts, `HT_SCHEMA_VERSION = 4`
 
-So the real endpoints are:
+Upstream publishes a **ready-made schedule export**, which is what the refresh
+now uses by default — one request, no shard-count guessing, and no second
+implementation of upstream's flattening:
+
+| what | url |
+| --- | --- |
+| schedule export (preferred) | `https://info.defcon.org/ht/defcon34/exports/schedule.csv` |
+| same, as JSON | `https://info.defcon.org/ht/defcon34/exports/schedule.json` |
+
+This is almost certainly where the original hand capture came from — it matches
+our column names exactly.
+
+The detail shards remain as a fallback (`--via shards`) for a conference that
+publishes no export:
 
 | what | url |
 | --- | --- |
 | manifest | `https://info.defcon.org/ht/defcon34/manifest.json` |
 | content cards | `https://info.defcon.org/ht/defcon34/views/contentCards.json` |
-| content detail | `https://info.defcon.org/ht/defcon34/details/content/{00..07}.json` |
+| content detail | `https://info.defcon.org/ht/defcon34/details/content/{00..NN}.json` |
+
+No shard count is hardcoded. `shardCount` is a build parameter upstream, not
+covered by `schemaVersion`, and it differs per conference — a training event
+has far less content than DEF CON itself. The range is discovered by walking
+from zero until two consecutive misses, and completeness is settled against
+`contentCards.json`, which enumerates every content record.
+
+Note the host serves a SPA, so a missing path returns `index.html` with a
+**200**, not a 404 — the end of the range shows up as a JSON parse failure.
+That is why a single failure does not end the walk: it could equally be one
+flaky request, and a success after it resets the count.
 
 Those eight shards are exactly the eight JSON files in the original hand
 capture. Locally they are stored as `content/page-NN.json`, where `NN` matches
