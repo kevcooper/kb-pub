@@ -59,20 +59,23 @@ static JSON tree, not a query API. The layout is declared in that repo:
 - `src/lib/conferences.ts` — `dataRoot` per conference; DEF CON 34 is `/ht/defcon34`
 - `src/lib/dataContract.ts` — view paths, detail shard counts, `HT_SCHEMA_VERSION = 4`
 
-Upstream publishes a **ready-made schedule export**, which is what the refresh
-now uses by default — one request, no shard-count guessing, and no second
-implementation of upstream's flattening:
+Upstream publishes a **ready-made schedule export**. It is NOT used by default,
+because it is lossy — verified against the live file on 2026-08-08, it has no
+`links` column (losing materials for 553 sessions), truncates abstracts to a
+`description_snippet`, carries UTC only, and yields 1,847 rows against 1,848
+from the detail shards. Use it only when titles and times are all you need:
 
 | what | url |
 | --- | --- |
 | schedule export (preferred) | `https://info.defcon.org/ht/defcon34/exports/schedule.csv` |
 | same, as JSON | `https://info.defcon.org/ht/defcon34/exports/schedule.json` |
 
-This is almost certainly where the original hand capture came from — it matches
-our column names exactly.
+Its columns are `session_id, content_id, start_utc, end_utc, location_name,
+title, speaker_names, organization_names, tag_names, description_snippet` —
+which is *not* the shape the original hand capture had, so the capture came
+from somewhere richer.
 
-The detail shards remain as a fallback (`--via shards`) for a conference that
-publishes no export:
+The detail shards are the default source and produce the full record:
 
 | what | url |
 | --- | --- |
